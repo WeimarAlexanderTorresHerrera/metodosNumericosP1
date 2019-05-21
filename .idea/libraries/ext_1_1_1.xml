@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ext-1.1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/lib/ext-1.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
