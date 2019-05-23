@@ -1,5 +1,6 @@
 package GUI;
 
+import metodosNumericosP1.NewtonCotes;
 import metodosNumericosP1.Simpson;
 import metodosNumericosP1.Trapecios;
 import org.nfunk.jep.JEP;
@@ -67,8 +68,11 @@ public class metodosNumericosGUI {
                         } else {
                             mensajeSimpson.setText("Numero de sub-intervalos impar");
                         }
-                    } else if (!np.getText().equals("")) {
+                    }
+                    if (!np.getText().equals("")) {
                         int np1 = Integer.parseInt(np.getText());
+                        NewtonCotes newtonCotes = new NewtonCotes();
+                        resNewtonCotes.setText(newtonCotes.metodoNewtonCotes(a1, b1, f, np1));
                     }
                 } catch (Exception e1) {
                     mensajeTrapecios.setText("Datos erroneos");
