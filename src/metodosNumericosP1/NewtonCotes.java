@@ -4,8 +4,8 @@ import org.nfunk.jep.JEP;
 
 public class NewtonCotes {
 
-    private double[][] a = {{0.3333333333, 1.3333333333, 0.3333333333}, {0.25, 0.75, 0.75, 0.25}, {0.1555555556, 0.7111111111, 0.2666666667, 0.7111111111, 0.1555555556}, {0.1319444444, 0.5208333333, 0.3472222222, 0.3472222222, 0.5208333333, 0.1319444444}, {0.0976190476, 0.5142857143, 0.0642857142, 0.6476190476, 0.0642857142, 0.5142857143, 0.0976190476}};
-    private double[][] x = {{-1, 0, 1}, {-1, -0.3333333333, 0.3333333333, 1}, {-1, -0.5, 0, 0.5, 1}, {-1, -0.6, -0.2, 0.2, 0.6, 1}, {-1, -0.6666666667, -0.3333333333, 0, 0.3333333333, 0.6666666667, 1}};
+    private double[][] a = {{(double) 1/3, (double) 4/3, (double) 1/3}, {(double) 1/4, (double) 3/4, (double) 3/4, (double) 1/4}, {(double) 14/90, (double) 32/45, (double) 4/15, (double) 32/45, (double) 14/90}, {(double) 19/144, (double) 25/48, (double) 25/72, (double) 25/72, (double) 25/48, (double) 19/144}, {(double) 41/420, (double) 18/35, (double) 9/140, (double) 68/105, (double) 9/140, (double) 18/35, (double) 41/420}};
+    private double[][] x = {{(double) -1, (double) 0, (double) 1}, {(double) -1, (double) -1/3, (double) 1/3, (double) 1}, {(double) -1, (double) -1/2, (double) 0, (double) 1/2, (double) 1}, {(double) -1, (double) -3/5, (double) -1/5, (double) 1/5, (double) 3/5, (double) 1}, {(double) -1, (double) -2/3, (double) -1/3, (double) 0, (double) 1/3, (double) 2/3, (double) 1}};
 
     public String metodoNewtonCotes (double a, double b, String funcion, int n) {
         JEP jep = new JEP();
