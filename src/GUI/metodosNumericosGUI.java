@@ -1,9 +1,6 @@
 package GUI;
 
-import metodosNumericosP1.CuadraturaGauss;
-import metodosNumericosP1.NewtonCotes;
-import metodosNumericosP1.Simpson;
-import metodosNumericosP1.Trapecios;
+import metodosNumericosP1.*;
 import org.nfunk.jep.JEP;
 
 import javax.swing.*;
@@ -29,6 +26,18 @@ public class    metodosNumericosGUI {
     private JLabel mensajeSimpson;
     private JLabel mensajeNewtonCotes;
     private JLabel mensajeCuadraturaGauss;
+    private JTextField a2;
+    private JTextField np2;
+    private JTextField b2;
+    private JTextField fx;
+    private JTextField gx;
+    private JTextField funcion2;
+    private JLabel resNewtonCotes2;
+    private JLabel resCuadraturaGauss2;
+    private JButton IntegrarrespectoaYyX;
+    private JButton NuevaIntegracion2;
+    private JLabel mensajeCuadraturaGauss2;
+    private JLabel mensajeNewtonCotes2;
 
     public metodosNumericosGUI() {
         nuevaIntegracionButton.addActionListener(new ActionListener() {
@@ -64,7 +73,6 @@ public class    metodosNumericosGUI {
                 jep.addStandardFunctions();
                 jep.addStandardConstants();
                 jep.setImplicitMul(true);
-                String f = funcion.getText();
                 jep.parseExpression(a.getText());
                 double a1 = jep.getValue();
                 jep.parseExpression(b.getText());
@@ -73,11 +81,11 @@ public class    metodosNumericosGUI {
                     try {
                         int ni1 = Integer.parseInt(ni.getText());
                         Trapecios trapecios = new Trapecios();
-                        resTrapecios.setText(trapecios.metodoTrapecios(a1, b1, f, ni1));
+                        resTrapecios.setText(trapecios.metodoTrapecios(a1, b1, funcion.getText(), ni1));
                         if (ni1 % 2 == 0) {
                             Simpson simpson = new Simpson();
-                            resSimpson.setText(simpson.metodoSimpson(a1, b1, f, ni1));
-                            mensajeSimpson.setText("Error: " + simpson.errorSimpson(a1, b1, f, ni1));
+                            resSimpson.setText(simpson.metodoSimpson(a1, b1, funcion.getText(), ni1));
+                            mensajeSimpson.setText("Error: " + simpson.errorSimpson(a1, b1, funcion.getText(), ni1));
                         } else {
                             mensajeSimpson.setText("Numero de sub-intervalos impar");
                         }
@@ -90,14 +98,58 @@ public class    metodosNumericosGUI {
                     try {
                         int np1 = Integer.parseInt(np.getText());
                         NewtonCotes newtonCotes = new NewtonCotes();
-                        resNewtonCotes.setText(newtonCotes.metodoNewtonCotes(a1, b1, f, np1));
+                        resNewtonCotes.setText(newtonCotes.metodoNewtonCotes(a1, b1, funcion.getText(), np1));
                         CuadraturaGauss cuadraturaGauss = new CuadraturaGauss();
-                        resCuadraturaGauss.setText(cuadraturaGauss.metodoCuadraturaGauss(a1, b1, f, np1));
+                        resCuadraturaGauss.setText(cuadraturaGauss.metodoCuadraturaGauss(a1, b1, funcion.getText(), np1));
                     } catch (Exception e2) {
                         mensajeNewtonCotes.setText("Datos erroneos");
                         mensajeCuadraturaGauss.setText("Datos erroneos");
                     }
                 }
+            }
+        });
+        IntegrarrespectoaYyX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resNewtonCotes2.setText("");
+                resCuadraturaGauss2.setText("");
+                mensajeNewtonCotes2.setText("");
+                mensajeCuadraturaGauss2.setText("");
+                JEP jep = new JEP();
+                jep.addStandardFunctions();
+                jep.addStandardConstants();
+                jep.setImplicitMul(true);
+                jep.parseExpression(a2.getText());
+                double a1 = jep.getValue();
+                jep.parseExpression(b2  .getText());
+                double b1 = jep.getValue();
+                if (!np2.getText().equals("")) {
+                    try {
+                        int np1 = Integer.parseInt(np2.getText());
+                        NewtonCotes2 newtonCotes2 = new NewtonCotes2();
+                        resNewtonCotes2.setText(newtonCotes2.metodoNewtonCotes2(a1, b1, fx.getText(), gx.getText(), funcion2.getText(), np1));
+                        CuadraturaGauss2 cuadraturaGauss2 = new CuadraturaGauss2();
+                        resCuadraturaGauss2.setText(cuadraturaGauss2.metodoCuadraturaGauss2(a1, b1, fx.getText(), gx.getText(), funcion2.getText(), np1));
+                    } catch (Exception e2) {
+                        mensajeNewtonCotes2.setText("Datos erroneos");
+                        mensajeCuadraturaGauss2.setText("Datos erroneos");
+                    }
+                }
+            }
+        });
+        NuevaIntegracion2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                b2.setText("");
+                a2.setText("");
+                funcion2.setText("");
+                fx.setText("");
+                gx.setText("");
+                np2.setText("");
+                resNewtonCotes2.setText("");
+                resCuadraturaGauss2.setText("");
+                mensajeNewtonCotes2.setText("");
+                mensajeCuadraturaGauss2.setText("");
             }
         });
     }
