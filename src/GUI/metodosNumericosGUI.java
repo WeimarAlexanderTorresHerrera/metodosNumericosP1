@@ -4,8 +4,10 @@ import metodosNumericosP1.*;
 import org.nfunk.jep.JEP;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class    metodosNumericosGUI {
 
@@ -39,7 +41,18 @@ public class    metodosNumericosGUI {
     private JLabel mensajeCuadraturaGauss2;
     private JLabel mensajeNewtonCotes2;
 
+    private JTextField nx;
+    private JButton generarMatrizButton;
+    private JTable table1;
+    private JTextArea textArea1;
+    private JButton resolverSistemaButton;
+    private DefaultTableModel tableModel = new DefaultTableModel();
+    private int n;
+
     public metodosNumericosGUI() {
+
+        table1.setModel(tableModel);
+
         nuevaIntegracionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -152,10 +165,49 @@ public class    metodosNumericosGUI {
                 mensajeCuadraturaGauss2.setText("");
             }
         });
+        generarMatrizButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    n = Integer.parseInt(nx.getText());
+                    if (n < 2) {
+                        throw new Exception("Datos Erroneos");
+                    }
+                    Object columna[] = new Object[n+1];
+                    for (int i = 0; i < n + 1; i++) {
+                        if (i < n) {
+                            columna[i] = "x" + (i + 1);
+                        } else {
+                            columna[i] = "d";
+                        }
+                    }
+                    tableModel = new DefaultTableModel(columna, n);
+                    table1.setModel(tableModel);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, e1.getMessage());
+                }
+            }
+        });
+        resolverSistemaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double m[][] = new double[n][n + 1];
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n + 1; j++) {
+                            m[i][j] = Double.parseDouble(String.valueOf(table1.getValueAt(i, j)));
+                        }
+                    }
+                    Gauss gauss = new Gauss();
+                    gauss.metodoGauss(textArea1, m);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos erroneos");
+                }
+            }
+        });
     }
 
     public JPanel getPanel1() {
         return panel1;
     }
-
 }
