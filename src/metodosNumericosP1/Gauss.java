@@ -1,6 +1,7 @@
 package metodosNumericosP1;
 
 import javax.swing.*;
+import java.text.DecimalFormat;
 
 public class Gauss {
 
@@ -44,8 +45,8 @@ public class Gauss {
                 }
                 soluciones[i] = m[i][n] - acc;
             }
+            dibujarSoluciones(jTextArea, soluciones);
         }
-        dibujarSoluciones(jTextArea, soluciones);
     }
 
     public void dibujarMatriz (JTextArea jTextArea, double[][] m, int k) {
@@ -53,12 +54,12 @@ public class Gauss {
             for (int c = 0; c < m[0].length; c++) {
                 if (c <= k && f >= c) {
                     if (c == f) {
-                        jTextArea.append(1.0 + "\t");
+                        jTextArea.append("1.00000000\t");
                     } else {
-                        jTextArea.append(0.0 + "\t");
+                        jTextArea.append("0.00000000\t");
                     }
                 } else {
-                    jTextArea.append(m[f][c] + "\t");
+                    jTextArea.append(String.format("%.8f", m[f][c]) + "\t");
                 }
             }
             jTextArea.append("\n");

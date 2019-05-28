@@ -7,7 +7,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 public class    metodosNumericosGUI {
 
@@ -46,6 +45,16 @@ public class    metodosNumericosGUI {
     private JTable table1;
     private JTextArea textArea1;
     private JButton resolverSistemaButton;
+    private JTextField nx1;
+    private JButton generarMatrizButton1;
+    private JTextField er;
+    private JButton resolverSistemaButton1;
+    private JTable table2;
+    private JTextArea textArea2;
+    private JButton nuevoSistemaButton;
+    private JButton nuevoSistemaButton1;
+    private JButton nuevoSistemaButton2;
+    private JTextArea textArea3;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private int n;
 
@@ -202,6 +211,48 @@ public class    metodosNumericosGUI {
                     gauss.metodoGauss(textArea1, m);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(tabbedPane1, "Datos erroneos");
+                }
+            }
+        });
+        nuevoSistemaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModel = new DefaultTableModel();
+                table1.setModel(tableModel);
+                textArea1.setText("");
+                nx.setText("");
+            }
+        });
+        nuevoSistemaButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModel = new DefaultTableModel();
+                table2.setModel(tableModel);
+                textArea2.setText("");
+                nx1.setText("");
+                er.setText("");
+            }
+        });
+        generarMatrizButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    n = Integer.parseInt(nx1.getText());
+                    if (n < 2) {
+                        throw new Exception("Datos Erroneos");
+                    }
+                    Object columna[] = new Object[n+1];
+                    for (int i = 0; i < n + 1; i++) {
+                        if (i < n) {
+                            columna[i] = "x" + (i + 1);
+                        } else {
+                            columna[i] = "d";
+                        }
+                    }
+                    tableModel = new DefaultTableModel(columna, n);
+                    table2.setModel(tableModel);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, e1.getMessage());
                 }
             }
         });
