@@ -70,12 +70,20 @@ public class Simpson {
         jep.addStandardFunctions();
         jep.addStandardConstants();
         jep.setImplicitMul(true);
-        double d = (b - a) / 10000;
+        int n;
+        if ((b - a) < 100) {
+            n = 1000;
+        } else if ((b - a) < 1000) {
+            n = 10000;
+        } else {
+            n = 100000;
+        }
+        double d = (b - a) / n;
         double x = a;
         double fx = jep.addVariable("x", x);
         jep.parseExpression(funcion);
         fx = jep.getValue();
-        for (int i = 1; i <= 10000; i++) {
+        for (int i = 1; i <= n; i++) {
             double fxaux = jep.addVariable("x", (a + d * i));
             jep.parseExpression(funcion);
             fxaux = jep.getValue();
