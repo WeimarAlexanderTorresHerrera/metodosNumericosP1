@@ -30,13 +30,15 @@ public class GaussSeidel {
             double acc[][] = new double[n][1];
             acc = x;
             dibujarTabla(jTextArea, acc, k, n, -1);
-            x = sumar(multiplicar(M, x), multiplicar(inversa(S), b));
+            double aux2[][] = new double[S.length][b[0].length];
+            aux2 = multiplicar(inversa(S), b);
+            x = sumar(multiplicar(M, x), aux2);
             double er = (normaIII(M) * normaIII(resta(acc, x)) / (1 - normaIII(M)));
             k++;
             dibujarTabla(jTextArea, x, k, n, er);
             while (er >= e) {
                 acc = x;
-                x = sumar (multiplicar(M, x), multiplicar(inversa(S), b));
+                x = sumar (multiplicar(M, x), aux2);
                 er = (normaIII(M) * normaIII(resta(acc, x)) / (1 - normaIII(M)));
                 k++;
                 dibujarTabla(jTextArea, x, k, n, er);
@@ -155,70 +157,83 @@ public class GaussSeidel {
         return a;
     }
 
-    public double[][] inversa(double a[][]) {
-        int n = a.length;
-        double x[][] = new double[n][n];
-        double b[][] = new double[n][n];
-        int index[] = new int[n];
-        for (int i = 0; i < n; ++i) {
-            b[i][i] = 1;
-        }
-        gauss(a, index);
-        for (int i=0; i<n-1; ++i) {
-            for (int j = i + 1; j < n; ++j) {
-                for (int k = 0; k < n; ++k) {
-                    b[index[j]][k] -= a[index[j]][i] * b[index[i]][k];
-                }
-            }
-        }
-        for (int i=0; i<n; ++i) {
-            x[n-1][i] = b[index[n-1]][i]/a[index[n-1]][n-1];
-            for (int j=n-2; j>=0; --j) {
-                x[j][i] = b[index[j]][i];
-                for (int k=j+1; k<n; ++k) {
-                    x[j][i] -= a[index[j]][k]*x[k][i];
-                }
-                x[j][i] /= a[index[j]][j];
-            }
-        }
-        return x;
+    public double[][] inversa(double[][] matriz) {
+        double det=1/determinante(matriz);
+        double[][] nmatriz=matrizAdjunta(matriz);
+        multiplicarMatriz(det,nmatriz);
+        return nmatriz;
     }
 
-    public static void gauss(double a[][], int index[])  {
-        int n = index.length;
-        double c[] = new double[n];
-        for (int i=0; i<n; ++i) {
-            index[i] = i;
-        }
-        for (int i=0; i<n; ++i) {
-            double c1 = 0;
-            for (int j=0; j<n; ++j) {
-                double c0 = Math.abs(a[i][j]);
-                if (c0 > c1) c1 = c0;
+    public void multiplicarMatriz(double n, double[][] matriz) {
+        for(int i=0;i<matriz.length;i++)
+            for(int j=0;j<matriz.length;j++)
+                matriz[i][j]*=n;
+    }
+
+    public double[][] matrizAdjunta(double [][] matriz){
+        return matrizTranspuesta(matrizCofactores(matriz));
+    }
+
+    public double[][] matrizCofactores(double[][] matriz){
+        double[][] nm=new double[matriz.length][matriz.length];
+        for(int i=0;i<matriz.length;i++) {
+            for(int j=0;j<matriz.length;j++) {
+                double[][] det=new double[matriz.length-1][matriz.length-1];
+                double detValor;
+                for(int k=0;k<matriz.length;k++) {
+                    if(k!=i) {
+                        for(int l=0;l<matriz.length;l++) {
+                            if(l!=j){
+                                int indice1=k<i ? k : k-1 ;
+                                int indice2=l<j ? l : l-1 ;
+                                det[indice1][indice2]=matriz[k][l];
+                            }
+                        }
+                    }
+                }
+                detValor=determinante(det);
+                nm[i][j]=detValor * (double)Math.pow(-1, i+j+2);
             }
-            c[i] = c1;
         }
-        int k = 0;
-        for (int j=0; j<n-1; ++j) {
-            double pi1 = 0;
-            for (int i=j; i<n; ++i)  {
-                double pi0 = Math.abs(a[index[i]][j]);
-                pi0 /= c[index[i]];
-                if (pi0 > pi1) {
-                    pi1 = pi0;
-                    k = i;
+        return nm;
+    }
+
+    public double[][] matrizTranspuesta(double [][] matriz){
+        double[][]nuevam=new double[matriz[0].length][matriz.length];
+        for(int i=0; i<matriz.length; i++){
+            for(int j=0; j<matriz.length; j++)
+                nuevam[i][j]=matriz[j][i];
+        }
+        return nuevam;
+    }
+
+    public double determinante(double[][] matriz){
+        double det;
+        if(matriz.length==2){
+            det=(matriz[0][0]*matriz[1][1])-(matriz[1][0]*matriz[0][1]);
+            return det;
+        }
+        double suma=0;
+        for(int i=0; i<matriz.length; i++){
+            double[][] nm=new double[matriz.length-1][matriz.length-1];
+            for(int j=0; j<matriz.length; j++){
+                if(j!=i){
+                    for(int k=1; k<matriz.length; k++){
+                        int indice=-1;
+                        if(j<i)
+                            indice=j;
+                        else if(j>i)
+                            indice=j-1;
+                        nm[indice][k-1]=matriz[j][k];
+                    }
                 }
             }
-            int itmp = index[j];
-            index[j] = index[k];
-            index[k] = itmp;
-            for (int i=j+1; i<n; ++i) {
-                double pj = a[index[i]][j]/a[index[j]][j];
-                a[index[i]][j] = pj;
-                for (int l=j+1; l<n; ++l)
-                    a[index[i]][l] -= pj*a[index[j]][l];
-            }
+            if(i%2==0)
+                suma+=matriz[i][0] * determinante(nm);
+            else
+                suma-=matriz[i][0] * determinante(nm);
         }
+        return suma;
     }
 
 }
