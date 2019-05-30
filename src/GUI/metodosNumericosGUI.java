@@ -55,6 +55,11 @@ public class    metodosNumericosGUI {
     private JButton nuevoSistemaButton1;
     private JButton nuevoSistemaButton2;
     private JTextArea textArea3;
+    private JTable table3;
+    private JTextField nx2;
+    private JTextField er1;
+    private JButton generarMatrizButton2;
+    private JButton resolverSistemaButton2;
     private DefaultTableModel tableModel = new DefaultTableModel();
     private int n;
 
@@ -201,6 +206,7 @@ public class    metodosNumericosGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    textArea1.setText("");
                     double m[][] = new double[n][n + 1];
                     for (int i = 0; i < n; i++) {
                         for (int j = 0; j < n + 1; j++) {
@@ -253,6 +259,75 @@ public class    metodosNumericosGUI {
                     table2.setModel(tableModel);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(tabbedPane1, e1.getMessage());
+                }
+            }
+        });
+        resolverSistemaButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    textArea2.setText("");
+                    double m[][] = new double[n][n + 1];
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n + 1; j++) {
+                            m[i][j] = Double.parseDouble(String.valueOf(table2.getValueAt(i, j)));
+                        }
+                    }
+                    Jacobi jacobi = new Jacobi();
+                    jacobi.metodoJacobi(textArea2, m, Double.parseDouble(er.getText()));
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos erroneos");
+                }
+            }
+        });
+        generarMatrizButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    n = Integer.parseInt(nx2.getText());
+                    if (n < 2) {
+                        throw new Exception("Datos Erroneos");
+                    }
+                    Object columna[] = new Object[n+1];
+                    for (int i = 0; i < n + 1; i++) {
+                        if (i < n) {
+                            columna[i] = "x" + (i + 1);
+                        } else {
+                            columna[i] = "d";
+                        }
+                    }
+                    tableModel = new DefaultTableModel(columna, n);
+                    table3.setModel(tableModel);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, e1.getMessage());
+                }
+            }
+        });
+        nuevoSistemaButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModel = new DefaultTableModel();
+                table3.setModel(tableModel);
+                textArea3.setText("");
+                nx2.setText("");
+                er1.setText("");
+            }
+        });
+        resolverSistemaButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    textArea3.setText("");
+                    double m[][] = new double[n][n + 1];
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n + 1; j++) {
+                            m[i][j] = Double.parseDouble(String.valueOf(table3.getValueAt(i, j)));
+                        }
+                    }
+                    GaussSeidel gaussSeidel = new GaussSeidel();
+                    gaussSeidel.metodoGaussSeidel(textArea3, m, Double.parseDouble(er1.getText()));
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos erroneos");
                 }
             }
         });
