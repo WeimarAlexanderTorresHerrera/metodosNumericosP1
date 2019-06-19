@@ -71,6 +71,13 @@ public class    metodosNumericosGUI {
     private JTextField resfx;
     private JTextField resPol;
     private JButton nuevaInterpolacionButton;
+    private JTable table5;
+    private JTextField ng;
+    private JTextField L;
+    private JTextField Lp;
+    private JTable table6;
+    private JButton generarFuncionButton;
+    private JButton obtenerRaicesButton;
 
     public metodosNumericosGUI() {
 

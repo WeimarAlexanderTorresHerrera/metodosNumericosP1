@@ -1,6 +1,62 @@
 package metodosNumericosP1;
 
+import org.nfunk.jep.JEP;
+
 public class NewtonRaphson {
+
+    public double[] metodoNewtonRaphson (double[] funcion, double L, double Lp) {
+        JEP jep = new JEP();
+        jep.addStandardFunctions();
+        jep.addStandardConstants();
+        jep.setImplicitMul(true);
+        double sol[] = new double[funcion.length-1];
+        int acc = 2;
+        double aux[] = funcion;
+        double aux1[] = derivarPolinomios(funcion);
+        for (; aux1.length > 1; acc++) {
+            double aux2[] = aux1;
+            aux1 = restoHorner(aux, aux1);
+            aux = aux2;
+        }
+        String p[] = new String[acc];
+        aux = funcion;
+        aux1 = derivarPolinomios(funcion);
+        p[0]=obtenerFuncion(funcion);
+        p[1]=obtenerFuncion(derivarPolinomios(funcion));
+        for (int i=2; i<p.length; i++) {
+            double aux2[] = aux1;
+            aux1 = restoHorner(aux, aux1);
+            aux = aux2;
+            p[i]=obtenerFuncion(aux1);
+        }
+        int h;
+        if (L-Lp < 100) {
+            h=100;
+        } else {
+            h=1000;
+        }
+        acc = 0;
+        double u = (L-Lp)/h;
+        boolean mSignos[][] = new boolean[p.length][h+1];
+        int mStotal[] = new int[funcion.length-1];
+        for (int i=0; i<mSignos.length; i++) {
+            for (int j=0; j<mSignos[0].length; j++) {
+                double v = Lp+j*u;
+                double f = jep.addVariable("x", v);
+                jep.parseExpression(p[i]);
+                f = jep.getValue();
+                if(f<0) {
+                    mSignos[i][j]=false;
+                } else if (f>0) {
+                    mSignos[i][j]=true;
+                } else {
+                    //if con caso 0
+                    sol[acc] = f;
+                }
+            }
+        }
+        return null;
+    }
 
     public double[] restoHorner (double[] num, double[] den) {
         double m[][] = new double[num.length-den.length+3][num.length+1];
@@ -47,7 +103,7 @@ public class NewtonRaphson {
         } else {
             double res[] = new double[den.length-1-n];
             for (int i=num.length-den.length+2+n, j=0; i<m[0].length; i++, j++) {
-                res[j] = m[m.length-1][i];
+                res[j] = -m[m.length-1][i];
             }
             return res;
         }
@@ -59,6 +115,15 @@ public class NewtonRaphson {
             res[i] = p[i]*(p.length-1-i);
         }
         return res;
+    }
+
+    public String obtenerFuncion (double[] p) {
+        String funcion = "";
+        funcion += p[0]+"*(x^"+(p.length-1)+")";
+        for (int i=1; i<p.length; i++) {
+            funcion += "+"+p[i]+"*(x^"+(p.length-i-1)+")";
+        }
+        return funcion;
     }
 
 }
