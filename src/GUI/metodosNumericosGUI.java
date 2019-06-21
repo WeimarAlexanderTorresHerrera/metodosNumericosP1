@@ -79,6 +79,14 @@ public class    metodosNumericosGUI {
     private JButton generarFuncionButton;
     private JButton obtenerRaicesButton;
     private JButton nuevaFuncionButton;
+    private JTextField np3;
+    private JTextField x1;
+    private JButton generarTablaButton1;
+    private JButton encontrarFXYButton1;
+    private JTable table7;
+    private JTextField resfx1;
+    private JTextField resPol1;
+    private JButton nuevaInterpolacionButton1;
 
     public metodosNumericosGUI() {
 
@@ -454,6 +462,44 @@ public class    metodosNumericosGUI {
                 table6.setModel(tableModel);
                 L.setText("");
                 Lp.setText("");
+            }
+        });
+        generarTablaButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    n = Integer.parseInt(np3.getText());
+                    if (n < 2) {
+                        throw new Exception();
+                    }
+                    Object columna[] = {"x", "y"};
+                    tableModel = new DefaultTableModel(columna, n);
+                    table7.setModel(tableModel);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos Erroneos");
+                }
+            }
+        });
+        encontrarFXYButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    resfx1.setText("");
+                    resPol1.setText("");
+                    double xy[][] = new double[n][2];
+                    for (int i = 0; i < n; i++) {
+                        xy[i][0] = Double.parseDouble(String.valueOf(table7.getValueAt(i, 0)));
+                        xy[i][1] = Double.parseDouble(String.valueOf(table7.getValueAt(i, 1)));
+                    }
+                    if (Double.valueOf(x1.getText())>xy[xy.length-2][0] && Double.valueOf(x1.getText())<xy[xy.length-1][0]) {
+                        NewtonDescendente newtonDescendente = new NewtonDescendente();
+                        newtonDescendente.metodoNewtonDescendente(Double.valueOf(x1.getText()), xy, resfx1, resPol1);
+                    } else {
+                        throw new Exception();
+                    }
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos erroneos");
+                }
             }
         });
     }
