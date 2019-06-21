@@ -78,6 +78,7 @@ public class    metodosNumericosGUI {
     private JTable table6;
     private JButton generarFuncionButton;
     private JButton obtenerRaicesButton;
+    private JButton nuevaFuncionButton;
 
     public metodosNumericosGUI() {
 
@@ -394,6 +395,65 @@ public class    metodosNumericosGUI {
                 np1.setText("");
                 tableModel = new DefaultTableModel();
                 table4.setModel(tableModel);
+            }
+        });
+        generarFuncionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    n = Integer.parseInt(ng.getText());
+                    if (n < 1) {
+                        throw new Exception();
+                    }
+                    Object columna[] = new Object[n+1];
+                    for (int i = 0; i < n+1; i++) {
+                        columna[i] = "x^" + (n - i);
+                    }
+                    tableModel = new DefaultTableModel(columna, 1);
+                    table5.setModel(tableModel);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos Erroneos");
+                }
+            }
+        });
+        obtenerRaicesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    if (Double.parseDouble(L.getText())-Double.parseDouble(Lp.getText())<=0) {
+                        throw new Exception();
+                    }
+                    tableModel = new DefaultTableModel();
+                    table6.setModel(tableModel);
+                    double f[] = new double[n+1];
+                    for (int i = 0; i < n+1; i++) {
+                        f[i] = Double.parseDouble(String.valueOf(table5.getValueAt(0, i)));
+                    }
+                    NewtonRaphson newtonRaphson = new NewtonRaphson();
+                    double[] sol = newtonRaphson.metodoNewtonRaphson(f, Double.parseDouble(L.getText()), Double.parseDouble(Lp.getText()));
+                    Object columna[] = new Object[sol.length];
+                    for (int i = 0; i < sol.length; i++) {
+                        columna[i] = "x" + (i+1);
+                    }
+                    tableModel = new DefaultTableModel(columna, 1);
+                    table6.setModel(tableModel);
+                    for (int i=0; i<sol.length; i++) {
+                        table6.setValueAt(sol[i], 0, i);
+                    }
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos erroneos");
+                }
+            }
+        });
+        nuevaFuncionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ng.setText("");
+                tableModel = new DefaultTableModel();
+                table5.setModel(tableModel);
+                table6.setModel(tableModel);
+                L.setText("");
+                Lp.setText("");
             }
         });
     }
