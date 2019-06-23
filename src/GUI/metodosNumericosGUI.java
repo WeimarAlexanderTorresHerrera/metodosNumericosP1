@@ -544,6 +544,28 @@ public class    metodosNumericosGUI {
                 }
             }
         });
+        nuevaInterpolacionButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                resfx2.setText("");
+                resPol2.setText("");
+                x2.setText("");
+                np4.setText("");
+                tableModel = new DefaultTableModel();
+                table8.setModel(tableModel);
+            }
+        });
+        nuevaInterpolacionButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                resfx1.setText("");
+                resPol1.setText("");
+                x1.setText("");
+                np3.setText("");
+                tableModel = new DefaultTableModel();
+                table7.setModel(tableModel);
+            }
+        });
     }
 
     public JPanel getPanel1() {
