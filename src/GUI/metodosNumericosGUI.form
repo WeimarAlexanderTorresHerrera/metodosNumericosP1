@@ -1145,7 +1145,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="a101a" class="javax.swing.JTable">
+                  <component id="a101a" class="javax.swing.JTable" binding="table8">
                     <constraints/>
                     <properties>
                       <preferredScrollableViewportSize width="0" height="400"/>
@@ -1169,7 +1169,7 @@
                   <text value="f(x):"/>
                 </properties>
               </component>
-              <component id="aba17" class="javax.swing.JButton">
+              <component id="aba17" class="javax.swing.JButton" binding="encontrarFXYButton2">
                 <constraints>
                   <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -1177,7 +1177,7 @@
                   <text value="Encontrar f(x) y el polinomio"/>
                 </properties>
               </component>
-              <component id="74204" class="javax.swing.JTextField">
+              <component id="74204" class="javax.swing.JTextField" binding="np4">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -1185,7 +1185,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="443a0" class="javax.swing.JTextField">
+              <component id="443a0" class="javax.swing.JTextField" binding="x2">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -1195,7 +1195,7 @@
                   <text value=""/>
                 </properties>
               </component>
-              <component id="462a4" class="javax.swing.JTextField">
+              <component id="462a4" class="javax.swing.JTextField" binding="resfx2">
                 <constraints>
                   <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -1203,7 +1203,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="3a48c" class="javax.swing.JTextField">
+              <component id="3a48c" class="javax.swing.JTextField" binding="resPol2">
                 <constraints>
                   <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -1211,7 +1211,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="eb7f9" class="javax.swing.JButton">
+              <component id="eb7f9" class="javax.swing.JButton" binding="nuevaInterpolacionButton2">
                 <constraints>
                   <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -1219,7 +1219,7 @@
                   <text value="Nueva Interpolacion"/>
                 </properties>
               </component>
-              <component id="b7a4b" class="javax.swing.JButton">
+              <component id="b7a4b" class="javax.swing.JButton" binding="generarTablaButton2">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>

@@ -87,6 +87,14 @@ public class    metodosNumericosGUI {
     private JTextField resfx1;
     private JTextField resPol1;
     private JButton nuevaInterpolacionButton1;
+    private JButton generarTablaButton2;
+    private JButton encontrarFXYButton2;
+    private JButton nuevaInterpolacionButton2;
+    private JTextField np4;
+    private JTextField x2;
+    private JTable table8;
+    private JTextField resfx2;
+    private JTextField resPol2;
 
     public metodosNumericosGUI() {
 
@@ -497,6 +505,40 @@ public class    metodosNumericosGUI {
                     } else {
                         throw new Exception();
                     }
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos erroneos");
+                }
+            }
+        });
+        generarTablaButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    n = Integer.parseInt(np4.getText());
+                    if (n < 2) {
+                        throw new Exception();
+                    }
+                    Object columna[] = {"x", "y"};
+                    tableModel = new DefaultTableModel(columna, n);
+                    table8.setModel(tableModel);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos Erroneos");
+                }
+            }
+        });
+        encontrarFXYButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    resfx2.setText("");
+                    resPol2.setText("");
+                    double xy[][] = new double[n][2];
+                    for (int i = 0; i < n; i++) {
+                        xy[i][0] = Double.parseDouble(String.valueOf(table8.getValueAt(i, 0)));
+                        xy[i][1] = Double.parseDouble(String.valueOf(table8.getValueAt(i, 1)));
+                    }
+                    Lagrange lagrange = new Lagrange();
+                    lagrange.metodoLagrange(Double.valueOf(x2.getText()), xy, resfx2, resPol2);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(tabbedPane1, "Datos erroneos");
                 }
