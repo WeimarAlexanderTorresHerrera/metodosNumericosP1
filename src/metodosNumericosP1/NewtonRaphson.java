@@ -106,7 +106,13 @@ public class NewtonRaphson {
     }
 
     public double[] restoHorner (double[] num, double[] den) {
-        double m[][] = new double[num.length-den.length+3][num.length+1];
+        int l;
+        if (num.length-den.length+1>=den.length-1) {
+            l = num.length-den.length+3;
+        } else {
+            l = den.length+1;
+        }
+        double m[][] = new double[l][num.length+1];
         for (int i=0; i<num.length; i++) {
             if (i==0) {
                 m[i][0] = den[i];
