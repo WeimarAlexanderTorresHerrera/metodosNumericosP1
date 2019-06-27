@@ -95,6 +95,46 @@ public class    metodosNumericosGUI {
     private JTable table8;
     private JTextField resfx2;
     private JTextField resPol2;
+    private JTextField f;
+    private JTextField x0;
+    private JTextField yx0;
+    private JTextField h;
+    private JTextField xf;
+    private JButton resolverButton;
+    private JTextArea textArea4;
+    private JButton nuevaEcuacionButton;
+    private JTextField f1;
+    private JTextField x01;
+    private JTextField yx01;
+    private JTextField h1;
+    private JTextField xf1;
+    private JButton resolverButton1;
+    private JTextArea textArea5;
+    private JButton nuevaEcuacionButton1;
+    private JTextField f2;
+    private JTextField x02;
+    private JTextField yx02;
+    private JTextField h2;
+    private JTextField xf2;
+    private JButton resolverButton2;
+    private JButton nuevaEcuacionButton2;
+    private JTextArea textArea6;
+    private JTextField f3;
+    private JTextField x03;
+    private JTextField yx03;
+    private JTextField h3;
+    private JTextField xf3;
+    private JButton resolverButton3;
+    private JTextArea textArea7;
+    private JButton nuevaEcuacionButton3;
+    private JTextField f4;
+    private JTextField x04;
+    private JTextField yx04;
+    private JTextField h4;
+    private JTextField xf4;
+    private JButton resolverButton4;
+    private JButton nuevaEcuacionButton4;
+    private JTextArea textArea8;
 
     public metodosNumericosGUI() {
 
@@ -564,6 +604,121 @@ public class    metodosNumericosGUI {
                 np3.setText("");
                 tableModel = new DefaultTableModel();
                 table7.setModel(tableModel);
+            }
+        });
+        resolverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    textArea4.setText("");
+                    Euler euler = new Euler();
+                    euler.metodoEuler(textArea4, f.getText(), Double.parseDouble(x0.getText()), Double.parseDouble(yx0.getText()), Double.parseDouble(h.getText()), Double.parseDouble(xf.getText()));
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos Erroneos");
+                }
+            }
+        });
+        nuevaEcuacionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                textArea4.setText("");
+                f.setText("");
+                x0.setText("");
+                yx0.setText("");
+                h.setText("");
+                xf.setText("");
+            }
+        });
+        resolverButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    textArea5.setText("");
+                    PuntoMedio puntoMedio = new PuntoMedio();
+                    puntoMedio.metodoPuntoMedio(textArea5, f1.getText(), Double.parseDouble(x01.getText()), Double.parseDouble(yx01.getText()), Double.parseDouble(h1.getText()), Double.parseDouble(xf1.getText()));
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos Erroneos");
+                }
+            }
+        });
+        nuevaEcuacionButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                textArea5.setText("");
+                f1.setText("");
+                x01.setText("");
+                yx01.setText("");
+                h1.setText("");
+                xf1.setText("");
+            }
+        });
+        resolverButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    textArea6.setText("");
+                    EulerModificado eulerModificado = new EulerModificado();
+                    eulerModificado.metodoEulerModificado(textArea6, f2.getText(), Double.parseDouble(x02.getText()), Double.parseDouble(yx02.getText()), Double.parseDouble(h2.getText()), Double.parseDouble(xf2.getText()));
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos Erroneos");
+                }
+            }
+        });
+        nuevaEcuacionButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                textArea6.setText("");
+                f2.setText("");
+                x02.setText("");
+                yx02.setText("");
+                h2.setText("");
+                xf2.setText("");
+            }
+        });
+        resolverButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    textArea7.setText("");
+                    Heun heun = new Heun();
+                    heun.metodoHeun(textArea7, f3.getText(), Double.parseDouble(x03.getText()), Double.parseDouble(yx03.getText()), Double.parseDouble(h3.getText()), Double.parseDouble(xf3.getText()));
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos Erroneos");
+                }
+            }
+        });
+        nuevaEcuacionButton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                textArea7.setText("");
+                f3.setText("");
+                x03.setText("");
+                yx03.setText("");
+                h3.setText("");
+                xf3.setText("");
+            }
+        });
+        resolverButton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    textArea8.setText("");
+                    RungeKutta rungeKutta = new RungeKutta();
+                    rungeKutta.metodoRungeKutta(textArea8, f4.getText(), Double.parseDouble(x04.getText()), Double.parseDouble(yx04.getText()), Double.parseDouble(h4.getText()), Double.parseDouble(xf4.getText()));
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(tabbedPane1, "Datos Erroneos");
+                }
+            }
+        });
+        nuevaEcuacionButton4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                textArea8.setText("");
+                f4.setText("");
+                x04.setText("");
+                yx04.setText("");
+                h4.setText("");
+                xf4.setText("");
             }
         });
     }
