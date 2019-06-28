@@ -1,16 +1,27 @@
 package metodosNumericosP1;
 
+import org.lsmp.djep.djep.DJep;
 import org.nfunk.jep.JEP;
+import org.nfunk.jep.Node;
+import org.nfunk.jep.ParseException;
 
 import javax.swing.*;
 
 public class NewtonDescendente {
 
-    public void metodoNewtonDescendente (double x, double[][] xy, JTextField resfx, JTextField resPol) {
+    public void metodoNewtonDescendente (double x, double[][] xy, JTextField resfx, JTextField resPol) throws ParseException {
         JEP jep = new JEP();
         jep.addStandardFunctions();
         jep.addStandardConstants();
         jep.setImplicitMul(true);
+        DJep dJep = new DJep();
+        dJep.addStandardConstants();
+        dJep.addStandardFunctions();
+        dJep.addComplex();
+        dJep.setAllowUndeclared(true);
+        dJep.setAllowAssignment(true);
+        dJep.setImplicitMul(true);
+        dJep.addStandardDiffRules();
         double h = xy[1][0]-xy[0][0];
         double y[] = new double[xy.length];
         for (int i=0; i<xy.length; i++) {
@@ -29,11 +40,13 @@ public class NewtonDescendente {
                 }
             }
         }
-        resPol.setText(funcion);
         double fx = jep.addVariable("x", x);
         jep.parseExpression(funcion);
         fx = jep.getValue();
         resfx.setText(Double.toString(fx));
+        Node node = dJep.parse(funcion);
+        node = dJep.simplify(node);
+        resPol.setText(dJep.toString(node));
     }
 
     public double[] diferenciasFinitas (double[] m) {

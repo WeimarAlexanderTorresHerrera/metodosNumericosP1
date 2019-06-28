@@ -135,6 +135,7 @@ public class    metodosNumericosGUI {
     private JButton resolverButton4;
     private JButton nuevaEcuacionButton4;
     private JTextArea textArea8;
+    private JTextArea textArea9;
 
     public metodosNumericosGUI() {
 
@@ -486,7 +487,7 @@ public class    metodosNumericosGUI {
                         f[i] = Double.parseDouble(String.valueOf(table5.getValueAt(0, i)));
                     }
                     NewtonRaphson newtonRaphson = new NewtonRaphson();
-                    double[] sol = newtonRaphson.metodoNewtonRaphson(f, Double.parseDouble(L.getText()), Double.parseDouble(Lp.getText()));
+                    double[] sol = newtonRaphson.metodoNewtonRaphson(textArea9 ,f, Double.parseDouble(L.getText()), Double.parseDouble(Lp.getText()));
                     Object columna[] = new Object[sol.length];
                     for (int i = 0; i < sol.length; i++) {
                         columna[i] = "x" + (i+1);

@@ -2,9 +2,11 @@ package metodosNumericosP1;
 
 import org.nfunk.jep.JEP;
 
+import javax.swing.*;
+
 public class NewtonRaphson {
 
-    public double[] metodoNewtonRaphson (double[] funcion, double L, double Lp) throws Exception {
+    public double[] metodoNewtonRaphson (JTextArea jTextArea, double[] funcion, double L, double Lp) throws Exception {
         JEP jep = new JEP();
         jep.addStandardFunctions();
         jep.addStandardConstants();
@@ -35,6 +37,7 @@ public class NewtonRaphson {
         int mCambios[] = new int[h];
         for (int j=0; j<mSignos[0].length; j++) {
             double v = Lp+j*u;
+            jTextArea.append(String.format("%.8f", v)+"\t");
             for (int i=0; i<mSignos.length; i++) {
                 double f = jep.addVariable("x", v);
                 jep.parseExpression(p[i]);
@@ -60,6 +63,7 @@ public class NewtonRaphson {
                 }
             }
         }
+        jTextArea.append("\n");
         for (int i=0; i<mSignos[0].length; i++) {
             if (mCambios[i]!=-1) {
                 int count=0;
@@ -69,6 +73,9 @@ public class NewtonRaphson {
                     }
                 }
                 mCambios[i]=count;
+                jTextArea.append(mCambios[i]+"\t");
+            } else {
+                jTextArea.append(mCambios[i]+"\t");
             }
         }
         acc=0;
